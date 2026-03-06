@@ -192,6 +192,7 @@
         color: transparent;
         -webkit-text-stroke: 1px var(--ink);
         transition: color .8s cubic-bezier(.22, 1, .36, 1), -webkit-text-stroke .8s cubic-bezier(.22, 1, .36, 1);
+        white-space: nowrap;
     }
     .name .first.filled,
     .name .last.filled {
@@ -393,17 +394,23 @@
             min-height: 100vh;
             cursor: auto;
         }
-        #cur, #cur-ring {
+        body {
+            background-color: var(--bg);
+            background-image:
+                linear-gradient(var(--border), var(--border)),
+                linear-gradient(var(--border), var(--border)),
+                linear-gradient(var(--border), var(--border));
+            background-size: 1px 100%, 1px 100%, 1px 100%;
+            background-position: 28px 0, 50% 0, calc(100% - 28px) 0;
+            background-repeat: no-repeat;
+        }
+        #cur, #cur-ring, .noise {
             display: none;
         }
 
-        /* 3 vertical lines */
+        /* 3 vertical lines via body background — hide the DOM element */
         .vlines {
-            display: flex !important;
-            padding: 0 28px;
-        }
-        .vline:nth-child(4), .vline:nth-child(5) {
-            display: none;
+            display: none !important;
         }
 
         /* keep grid, marquee stays at row 2 = centre */
@@ -523,9 +530,9 @@
         }
 
         .copy {
-            position: fixed;
-            bottom: 14px;
-            left: 28px;
+            position: static;
+            display: block;
+            padding: 28px 28px 28px;
             font-size: 8px;
         }
     }
@@ -610,9 +617,11 @@
 
         </div>
 
-    </div>
+            <span class="copy">© 2026 Emanuele Capponi — All rights reserved</span>
 
-    <span class="copy">© 2026 Emanuele Capponi — All rights reserved</span>
+        </div>
+
+    </div>
 
     <script>
         window.addEventListener('load', function () {
